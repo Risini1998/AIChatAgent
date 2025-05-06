@@ -13,7 +13,7 @@ export default function Home() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -44,41 +44,48 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col h-screen p-4 bg-gray-100">
-      <div className="flex-1 overflow-auto p-4 bg-white rounded shadow">
-        {messages.map((msg, i) => (
-          <div
-            key={i}
-            className={`flex mb-5 ${
-              msg.role === "user" ? "justify-end" : "justify-start"
-            }`}
-          >
+    <div className="flex flex-col h-screen p-8 bg-gray-100 justify-center items-center">
+      {messages.length === 0 && (
+        <span className=" text-2xl text-gray-700 font-bold p-4">
+          How can I help you, today?
+        </span>
+      )}
+      {messages.length > 0 && (
+        <div className="w-full flex-1 overflow-auto p-4 bg-white rounded-md shadow">
+          {messages.map((msg, i) => (
             <div
-              className={`inline-block px-4 py-2 rounded text-gray-600 max-w-[80%] ${
-                msg.role === "user" ? "bg-gray-100" : "bg-gray-300"
+              key={i}
+              className={`flex mb-5 ${
+                msg.role === "user" ? "justify-end" : "justify-start"
               }`}
             >
-              {msg.content}
+              <div
+                className={`inline-block px-4 py-2 rounded-lg text-gray-600 max-w-[80%] shadow ${
+                  msg.role === "user" ? "bg-gray-100" : "bg-gray-300"
+                }`}
+              >
+                {msg.content}
+              </div>
             </div>
-          </div>
-        ))}
-        {loading && <div className="text-gray-500 italic">Typing...</div>}
-        <div ref={messagesEndRef} />
-      </div>
-      <div className="w-full mt-4 flex gap-2">
+          ))}
+          {loading && <div className="text-gray-500 italic">Typing...</div>}
+          <div ref={messagesEndRef} />
+        </div>
+      )}
+      <div className="w-full mt-4 flex gap-2 justify-center">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
-          className="flex-1 p-2 border rounded-l border-gray-400 bg-gray-300 text-black w-[60%]"
+          className="flex-1 p-2 border rounded-lg border-gray-400 bg-gray-200 text-black"
           placeholder="Ask me anything..."
         />
         <button
           onClick={handleSend}
-          className="bg-blue-500 text-white px-4 rounded-r"
+          className="bg-gray-700 rounded-lg text-white px-4"
         >
-          Send
+          <img src="/send.svg" alt="send-icon" className="w-8 h-6" />
         </button>
       </div>
     </div>
