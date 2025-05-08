@@ -37,7 +37,7 @@ export default function Home() {
     // const data = await res.json();
     const botMessage: IMessage = {
       role: "bot",
-      content: "hi jddfjdfjjg jsjdjdf jdhjksdjdfj jdfjdfjdfjdf",
+      content: input,
     };
     setMessages((prev) => [...prev, botMessage]);
     setLoading(false);
@@ -73,17 +73,19 @@ export default function Home() {
         </div>
       )}
       <div className="w-full mt-4 flex gap-2 justify-center">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSend()}
-          className="flex-1 p-2 border rounded-lg border-gray-400 bg-gray-200 text-black"
-          placeholder="Ask me anything..."
-        />
+        <div className="w-full flex max-h-[300px]">
+          <textarea
+            // rows={3}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSend()}
+            className="w-full flex p-2 border rounded-lg border-gray-400 bg-gray-200 text-black items-center h-12"
+            placeholder="Ask me anything..."
+          />
+        </div>
         <button
           onClick={handleSend}
-          className="bg-gray-700 rounded-lg text-white px-4"
+          className="bg-gray-700 rounded-lg text-white px-4 py-3 h-fit"
         >
           <img src="/send.svg" alt="send-icon" className="w-8 h-6" />
         </button>
